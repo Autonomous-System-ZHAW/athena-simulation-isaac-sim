@@ -16,3 +16,9 @@ repositories:
     url: https://github.com/Autonomous-System-ZHAW/athena-custom-msgs-pkg.git 
     version: main
     path: athena_custom_msgs_pkg
+
+  mpc_controller:
+    type: git
+    url: https://git@github.com/Autonomous-System-ZHAW/mpc_controller.git 
+    version: simulation-MPC 
+    path: mpc_controller

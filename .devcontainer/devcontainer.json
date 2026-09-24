@@ -4,9 +4,11 @@
     "remoteUser": "${localEnv:USER}",
     "build": {
         "context": "..",
-        "dockerfile": "../src/IsaacSim-ros_workspaces/dockerfiles/ubuntu_24_jazzy_python_312_minimal.dockerfile",
+        "dockerfile": "../.devcontainer/Dockerfile.dockerfile",
         "args": {
-            "USER": "${localEnv:USER}",
+            "USERNAME": "${localEnv:USER}",
+            "USER_UID": "1000",
+            "USER_GID": "1000",
             "WS_BASENAME": "${localWorkspaceFolderBasename}"
         }
     },
@@ -48,20 +50,40 @@
         }
     },
     "containerEnv": {
-        "ROS_DOMAIN_ID": "0",
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "WAYLAND_DISPLAY" : "${localEnv:WAYLAND_DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "SYSTEM_DEFAULT", // Uses the default discovery settings of the ROS 2 middleware.
+        "ROS_DOMAIN_ID": "101",
         "GZ_SIM_RESOURCE_PATH": "/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename}/src",
-        "FASTRTPS_DEFAULT_PROFILES_FILE": "/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename}/src/IsaacSim-ros_workspaces/jazzy_ws/fastdds.xml"
-        
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/home/${localEnv:USER}/ros2_ws/${localWorkspaceFolderBasename}/.devcontainer/fastdds.xml",
+        "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp"
     },
     "runArgs": [
         "--hostname=${localWorkspaceFolderBasename}-devcontainer",
-        "--net=host"
+        "--network=host",
+        "--ipc=host",
+        "--privileged",
+        "--gpus=all", 
+
+        // Needed to make display available from within the container
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "-v", "/run/user/1000:/run/user/1000",
+
+        // needed to make composer work
+        "-v", "/usr/share/vulkan/:/usr/share/vulkan",
+        "-v", "/etc/vulkan:/etc/vulkan",
+        "-v", "/var/tmp/gxf:/var/tmp/gxf",
+
+        // Mount NFS share
+        "-v", "/media/docker-volumes:/mnt"
     ],
     "mounts": [
     ],
     "features": {
         "ghcr.io/devcontainers/features/git": {}
     },
-    "postCreateCommand": "vcs import athena-simulation/src < ${containerWorkspaceFolder}/${localWorkspaceFolderBasename}/ros2.repos --recursive && sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y && pip install --break-system-packages --no-deps -r athena-simulation/.devcontainer/requirements.txt",
+    "postCreateCommand": "sudo apt-get update && rosdep update && rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -r -y && pip install --break-system-packages --no-deps -r athena-simulation-isaac-sim/.devcontainer/requirements.txt",
     "postStartCommand": "/bin/bash -c 'rm -rf build/ install/ log/ && source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --symlink-install'"
 }

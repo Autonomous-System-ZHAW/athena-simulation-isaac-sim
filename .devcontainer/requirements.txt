@@ -1,3 +1,9 @@
 rerun-sdk
 pyarrow
 typing-extensions
+do-mpc
+casadi
+osqp
+board
+adafruit-circuitpython-pixelbuf
+Adafruit-Blinka-Raspberry-Pi5-Neopixel
