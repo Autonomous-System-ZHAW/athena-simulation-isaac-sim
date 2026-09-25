@@ -15,6 +15,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get install -y --no-install-recommends \
         sudo \
         python3-pip python3-dev build-essential \
+        python3-vcstool \
         ros-jazzy-foxglove-bridge\
     && rm -rf /var/lib/apt/lists/* \
     && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \

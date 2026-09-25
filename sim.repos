@@ -1,24 +1,12 @@
 repositories:
-  greenwave_monitor:
+  vicon-tracker:
     type: git
-    url: https://github.com/NVIDIA-ISAAC-ROS/greenwave_monitor.git 
-    version: 0.1.0
-    path: greenwave_monitor
-
-  athena_follow_the_gap:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena_follow_the_gap.git 
-    version: simulation-FTG
-    path: follow_the_gap
-
-  athena_custom_msgs_pkg:
-    type: git
-    url: https://github.com/Autonomous-System-ZHAW/athena-custom-msgs-pkg.git 
+    url: https://github.com/Autonomous-System-ZHAW/vicon_tracker_ros2.git
     version: main
-    path: athena_custom_msgs_pkg
+    path: vicon-tracker
 
-  mpc_controller:
+  athena_autonomous_racing:
     type: git
-    url: https://git@github.com/Autonomous-System-ZHAW/mpc_controller.git 
-    version: simulation-MPC 
-    path: mpc_controller
+    url: https://github.com/Autonomous-System-ZHAW/athena_autonomous_racing.git
+    version: main
+    path: athena_autonomous_racing

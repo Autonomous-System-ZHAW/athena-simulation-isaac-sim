@@ -2,3 +2,7 @@
 src/*
 !src/IsaacSim-ros_workspaces/
 !src/IsaacSim-ros_workspaces/**
+
+build/
+install/
+log/

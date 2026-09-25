@@ -1,0 +1,9 @@
+# athena_sim_bringup/config/vicon.yaml
+hostname: "10.10.0.8"
+topic_namespace: "vicon"
+buffer_size: "200"
+world_frame: "map"
+vicon_frame: "vicon"
+map_xyz: "[0.0, 0.0, 0.0]"
+map_rpy: "[0.0, 0.0, 0.0]"
+map_rpy_in_degrees: "false"
